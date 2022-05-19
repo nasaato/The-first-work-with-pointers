@@ -1,0 +1,56 @@
+#include <iostream>
+
+//Среднее арифметическое.
+float SA_f(int* array, int size) {
+	float t = 0;
+	for (int i = 0; i < size; i++)
+	{
+		t += array[i];
+	}
+	return t/size;
+}
+
+//Размер массива Y(k).
+int size_Y(int* array, int size, float SA) {
+	int k = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (array[i] > SA)
+		{
+			k++;
+		}
+	}
+	return k;
+}
+
+//Создание массива Y(k).
+void create_Y(int *array, int size, int k, float SA) {
+	int *Y = new(int [k]);
+	for (int i = 0, t = 0; i < size; i++)
+	{
+		if (array[i] > SA)	
+		{
+			Y[t] = array[i];
+			printf("Y[%d] = %d\n", t, Y[t]);
+			t++;
+		}
+	}
+}
+
+int main() {
+	printf("Program: \"Arithmetic Average of an Array\".\n\n");
+	int n, k = 0, SA;
+	printf("Enter size array: ");
+	scanf_s("%d", &n);
+	int* X = new(int [n]);	
+	for (int i = 0; i < n; i++)
+	{
+		printf("X[%d] = ", i);
+		scanf_s("%d", &X[i]);
+	}
+	printf("SA = %.2f\n", SA_f(X, n));
+	SA = SA_f(X, n);
+	create_Y(X, n, size_Y(X, n, SA), SA);
+
+	return 0;
+}
